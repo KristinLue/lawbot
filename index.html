@@ -24,9 +24,13 @@
       const question = document.getElementById("question").value;
       const answerDiv = document.getElementById("answer");
 
-      if (!question) return answerDiv.innerText = "請先輸入或說出問題喔～";
+      if (!question) {
+        answerDiv.innerText = "請先輸入或說出問題喔～";
+        return;
+      }
+      
       answerDiv.innerText = "🧠 AI 小幫手思考中...";
-
+      
       try {
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
@@ -43,11 +47,15 @@
           })
         });
 
+        console.log('Response Status:', response.status);  // 查看回應狀態
         const result = await response.json();
+        console.log('API Response:', result);  // 查看回應內容
+
         const reply = result.choices?.[0]?.message?.content || "⚠️ 抱歉，AI 沒有回應";
         answerDiv.innerText = reply;
 
       } catch (err) {
+        console.error('Error:', err);  // 顯示錯誤
         answerDiv.innerText = "🚫 發生錯誤：" + err.message;
       }
     }
