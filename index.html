@@ -47,15 +47,15 @@
           })
         });
 
-        console.log('Response Status:', response.status);  // 查看回應狀態
+        console.log('Response Status:', response.status);  
         const result = await response.json();
-        console.log('API Response:', result);  // 查看回應內容
+        console.log('API Response:', result);  
 
         const reply = result.choices?.[0]?.message?.content || "⚠️ 抱歉，AI 沒有回應";
         answerDiv.innerText = reply;
 
       } catch (err) {
-        console.error('Error:', err);  // 顯示錯誤
+        console.error('Error:', err);  
         answerDiv.innerText = "🚫 發生錯誤：" + err.message;
       }
     }
